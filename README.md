@@ -1,2 +1,2 @@
-# ReactJS_ShoppingCart
+# ReactJS ShoppingCart
 React fundamentals
