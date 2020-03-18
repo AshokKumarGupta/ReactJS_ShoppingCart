@@ -3,39 +3,22 @@ import ProductComponent from "./productComponent";
 
 class ProductsComponent extends Component {
   state = {
-    counter: 0
+    counterValue: 0
   };
 
-  handleIncreament = () => {
-    let { counter } = this.state;
+  handleUpdatedValue = value => {
     this.setState({
-      counter: counter + 1
+      counterValue: value
     });
   };
 
-  handleDecrement = () => {
-    let { counter } = this.state;
-    if (!counter) return 0;
-    this.setState({
-      counter: counter - 1
-    });
-  };
-
-  handleProductQuantity = type => {
-    if (type === "increament") {
-      this.handleIncreament();
-    } else {
-      this.handleDecrement();
-    }
-  };
   render() {
-    const { counter } = this.state;
-
+    const { counterValue } = this.state;
     return (
       <React.Fragment>
+        <p>Value from child to parent: {counterValue}</p>
         <ProductComponent
-          value={counter}
-          onClick={type => this.handleProductQuantity(type)}
+          updateCounterValueCallback={value => this.handleUpdatedValue(value)}
         />
       </React.Fragment>
     );

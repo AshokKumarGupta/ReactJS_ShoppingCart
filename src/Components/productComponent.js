@@ -1,14 +1,52 @@
-import React from "react";
+import React, { Component } from "react";
+class ProductComponent extends Component {
+  state = { value: 0 };
 
-const ProductComponent = props => {
-  return (
-    <React.Fragment>
-      <span>{!props.value ? "Zero" : props.value}</span>
+  handleIncreament = () => {
+    let { value } = this.state;
+    const { updateCounterValueCallback } = this.props;
 
-      <button onClick={() => props.onClick("increament")}>{"+"}</button>
-      <button onClick={() => props.onClick("decrement")}>{"-"}</button>
-    </React.Fragment>
-  );
-};
+    this.setState(
+      {
+        value: value + 1
+      },
+      () => {
+        if (!!updateCounterValueCallback) {
+          updateCounterValueCallback(this.state.value);
+        }
+      }
+    );
+  };
+
+  handleDecrement = () => {
+    let { value } = this.state;
+    const { updateCounterValueCallback } = this.props;
+
+    if (!value) return 0;
+    this.setState(
+      {
+        value: value - 1
+      },
+      () => {
+        if (!!updateCounterValueCallback) {
+          updateCounterValueCallback(this.state.value);
+        }
+      }
+    );
+  };
+
+  render() {
+    const { value } = this.state;
+
+    return (
+      <React.Fragment>
+        <span>{!value ? "Zero" : value}</span>
+
+        <button onClick={() => this.handleIncreament()}>{"+"}</button>
+        <button onClick={() => this.handleDecrement()}>{"-"}</button>
+      </React.Fragment>
+    );
+  }
+}
 
 export default ProductComponent;
